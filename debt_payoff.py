@@ -7,14 +7,26 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-debt_name = "my big fat debt"
-min_payment = 50.00
-interest = .12
-balance = 500.00
+debt_name = input("Name of debt: ")
+min_payment = float(input("Enter minimum payment: "))
+balance = float(input("Enter balance: "))
+interest = input("Enter APR as decimal (Default is 0): ")
+if interest.strip() == '':
+    interest = 0
+else:
+    interest = float(interest)
+extra_pay = input("Enter how much extra to pay each month (Default is 0): ")
+if extra_pay.strip() == '':
+    extra_pay = 0
+else:
+    extra_pay = float(extra_pay)
+starting_date = input("Enter first payment date. Use 3 character month abbreviation, and year. (ie. Sep 2024): ")
+starting_month = starting_date.split()[0]
+starting_year = int(starting_date.split()[1])
+
 month = 0
-extra_pay = 00.00
-starting_month = "Jun"
-starting_year = 2024
+# starting_month = "Jun"
+# starting_year = 2024
 
 def compute_payoff_month(starting_month, starting_year, month):
     initial_date_string = starting_month + " 1, " + str(starting_year)
