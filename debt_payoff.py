@@ -25,27 +25,32 @@ starting_month = starting_date.split()[0]
 starting_year = int(starting_date.split()[1])
 
 month = 0
-# starting_month = "Jun"
-# starting_year = 2024
+
 
 def compute_payoff_month(starting_month, starting_year, month):
     initial_date_string = starting_month + " 1, " + str(starting_year)
     initial_date = datetime.strptime(initial_date_string, "%b %d, %Y")
-    payoff_date = initial_date + relativedelta(months=+(month-1))
+    payoff_date = initial_date + relativedelta(months=+(month))
     return datetime.strftime(payoff_date, "%b %Y")
 
 
+total_payments = 0
+total_interest = 0
 while balance > 0:
     month += 1
     # Compute interest portion
     interest_portion = balance * (interest/12)
     # compute how much to apply to balance
-    payment = min_payment + extra_pay - interest_portion
+    full_payment = min_payment + extra_pay
+    payment = full_payment - interest_portion
     if payment > balance: payment = balance
     balance -= payment
-    print(f"Month {month}: You paid ${payment:.2f} towards {debt_name}. Balance left is ${balance:.2f} Interest was: {interest_portion:.2f}") 
-
+     
+    print(f"{debt_name} - Payment amount: ${full_payment:.2f}, of which ${payment:.2f} was applied to the balance, and ${interest_portion:.2f} was interest.")
+    total_payments += payment
+    total_interest += interest_portion
 
 # Need to use month-1 below as the month is increased before the payment. 
 print(f"Payoff date is {compute_payoff_month(starting_month, starting_year, (month-1))}")
+print(f"A total of ${total_payments + total_interest:.2f} was paid to {debt_name}, of which ${total_interest:.2f} was interest.")
 
