@@ -4,6 +4,10 @@
 # subtract the interest portion from the payment
 # then subtract the payment from the balance
 
+# to add: Read debt info from file
+# handle multiple debts
+
+
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -46,7 +50,7 @@ while balance > 0:
     if payment > balance: payment = balance
     balance -= payment
      
-    print(f"{debt_name} - Payment amount: ${full_payment:.2f}, of which ${payment:.2f} was applied to the balance, and ${interest_portion:.2f} was interest.")
+    print(f"{debt_name} - Payment amount: ${full_payment:.2f}, of which ${payment:.2f} was applied to the balance, and ${interest_portion:.2f} was interest. Balance left: ${balance:.2f}")
     total_payments += payment
     total_interest += interest_portion
 
